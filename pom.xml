@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <groupId>com.velexio.oss.jlegos</groupId>
     <artifactId>jLegos</artifactId>
-    <version>0.1.0-SNAPSHOTkkk</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <name>jLegos</name>
     <description>Java Legos - A set of common utility methods for Java projects</description>
