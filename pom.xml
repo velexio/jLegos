@@ -4,7 +4,7 @@
     <packaging>jar</packaging>
     <groupId>com.velexio.oss.jlegos</groupId>
     <artifactId>jLegos</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <name>jLegos</name>
     <description>Java Legos - A set of common utility methods for Java projects</description>
@@ -28,7 +28,7 @@
         <url>https://github.com/velexio/jLegos</url>
         <connection>scm:git:git://github.com/velexio/jLegos.git</connection>
         <developerConnection>scm:git:git@github.com:velexio/jLegos.git</developerConnection>
-        <tag>jLegos-0.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencies>
