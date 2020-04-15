@@ -57,23 +57,80 @@ public class DateUtils {
         return DateUtils.buildFormat(formatPattern).format(DateUtils.getDateFromMillis(timeAsMillis));
     }
 
-    public static String dynamicElapsedTime(long elapsedMillis) {
+    /**
+     * Will return the amount of elapsed time (represented in milliseconds) to a human readable format of
+     * days, hours, minutes, seconds
+     *
+     * Example:
+     *   10 days, 4 hours, 1 minute, 45 seconds
+     *   1 day, 1 hour, 2 minutes, 30 seconds
+     *   2 minutes, 10 seconds
+     *
+     * @param elapsedMillis A long, repersenting the number of milliseconds of the elapsed time.
+     * @return A string representing a human readable format.
+     */
+    public static String getFormattedElapsedTime(long elapsedMillis) {
         double[] limits = {1, 2};
         Map<String, String[]> unitFormatMap = Map.of(
                 "s", new String[]{" second", " seconds"},
-                "m", new String[]{" minute", "minutes"},
+                "m", new String[]{" minute", " minutes"},
                 "h", new String[]{" hour", " hours"},
-                "d", new String[]{" day", " days"}
+                "d", new String[]{" day", " days"},
+                "w", new String[]{" week", " weeks"},
+                "mo", new String[]{" month", " months"},
+                "y", new String[]{" year", " years"}
         );
         ArrayList<String> returnValues = new ArrayList<>();
 
-        long day = TimeUnit.MILLISECONDS.toDays(elapsedMillis);
+        long year = Math.round((TimeUnit.MILLISECONDS.toDays(elapsedMillis) / 365));
+        long month = Math.round((TimeUnit.MILLISECONDS.toDays(elapsedMillis) / 30))
+                - yearsToMonths(year);
+        long x1 = Math.round((TimeUnit.MILLISECONDS.toDays(elapsedMillis)/7));
+        long x2 = monthsToWeeks(yearsToMonths(year));
+        long week = Math.round((TimeUnit.MILLISECONDS.toDays(elapsedMillis)/7))
+                - monthsToWeeks(yearsToMonths(year))
+                - monthsToWeeks(month);
+        long day = TimeUnit.MILLISECONDS.toDays(elapsedMillis)
+                - yearsToDays(year)
+                - monthsToDays(month)
+                - weeksToDays(week);
         long hour = TimeUnit.MILLISECONDS.toHours(elapsedMillis)
-                - TimeUnit.MILLISECONDS.toHours(TimeUnit.MILLISECONDS.toDays(elapsedMillis));
+                - TimeUnit.DAYS.toHours(yearsToDays(year))
+                - TimeUnit.DAYS.toHours(monthsToDays(month))
+                - TimeUnit.DAYS.toHours(weeksToDays(week))
+                - TimeUnit.DAYS.toHours(day);
         long min = TimeUnit.MILLISECONDS.toMinutes(elapsedMillis)
-                - TimeUnit.MILLISECONDS.toMinutes(TimeUnit.MILLISECONDS.toHours(elapsedMillis));
+                - TimeUnit.DAYS.toMinutes(yearsToDays(year))
+                - TimeUnit.DAYS.toMinutes(monthsToDays(month))
+                - TimeUnit.DAYS.toMinutes(weeksToDays(week))
+                - TimeUnit.DAYS.toMinutes(day)
+                - TimeUnit.HOURS.toMinutes(hour);
         long sec = TimeUnit.MILLISECONDS.toSeconds(elapsedMillis)
-                - TimeUnit.MILLISECONDS.toSeconds(TimeUnit.MILLISECONDS.toMinutes(elapsedMillis));
+                - TimeUnit.DAYS.toSeconds(yearsToDays(year))
+                - TimeUnit.DAYS.toSeconds(monthsToDays(month))
+                - TimeUnit.DAYS.toSeconds(weeksToDays(week))
+                - TimeUnit.DAYS.toSeconds(day)
+                - TimeUnit.HOURS.toSeconds(hour)
+                - TimeUnit.MINUTES.toSeconds(min);
+
+        if (year > 0) {
+            ChoiceFormat f = new ChoiceFormat(limits, unitFormatMap.get("y"));
+            returnValues.add("~ "+ year + f.format(year));
+        }
+
+        if (month > 0) {
+            ChoiceFormat f = new ChoiceFormat(limits, unitFormatMap.get("mo"));
+            if (year < 1) {
+                returnValues.add("~ " + month + f.format(month));
+            } else {
+                returnValues.add(month + f.format(month));
+            }
+        }
+
+        if (week > 0) {
+            ChoiceFormat f = new ChoiceFormat(limits, unitFormatMap.get("w"));
+            returnValues.add(week + f.format(week));
+        }
 
         if (day > 0) {
             ChoiceFormat f = new ChoiceFormat(limits, unitFormatMap.get("d"));
@@ -95,8 +152,33 @@ public class DateUtils {
             returnValues.add(sec + f.format(sec));
         }
 
-        return String.join(", ", returnValues);
+        if (returnValues.size() < 1) {
+            return "Under a second";
+        } else {
+            return String.join(", ", returnValues);
+        }
 
+    }
+
+    private static long weeksToDays(long weeks) {
+        return weeks * 7;
+    }
+
+    private static long monthsToWeeks(long months) {
+//        return Math.round(months * 4.34524);
+        return (long) Math.floor(months * 4.34524);
+    }
+
+    private static long monthsToDays(long months) {
+        return months * 30;
+    }
+
+    private static long yearsToMonths(long years) {
+        return years * 12;
+    }
+
+    private static long yearsToDays(long years) {
+        return Math.round(years * 365.25);
     }
 
 

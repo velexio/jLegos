@@ -6,10 +6,10 @@
     <packaging>jar</packaging>
     <groupId>com.velexio.oss.jlegos</groupId>
     <artifactId>jLegos</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0-BETA</version>
 
     <name>jLegos</name>
-    <description>Java Legos - A set of common utility methods for Jave projects</description>
+    <description>Java Legos - A set of common utility methods for Java projects</description>
 
     <licenses>
         <license>
@@ -19,8 +19,53 @@
         </license>
     </licenses>
 
+    <properties>
+        <junit.jupiter.version>5.6.0</junit.jupiter.version>
+        <lombok.version>1.18.12</lombok.version>
+        <slf4j.version>1.7.30</slf4j.version>
+        <maven.compiler.release>11</maven.compiler.release>
+    </properties>
+
     <scm>
         <url>https://github.com/velexio/jLegos</url>
     </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
