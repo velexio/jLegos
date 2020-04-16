@@ -1,4 +1,4 @@
-package com.velexio.oss.jlegos.exceptions;
+package com.velexio.jlegos.exceptions;
 
 public class ChecksumGenerationException extends Exception {
     public ChecksumGenerationException() {
