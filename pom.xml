@@ -33,6 +33,11 @@
         <tag>HEAD</tag>
     </scm>
 
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/velexio/jLegos/issues</url>
+    </issueManagement>
+
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
