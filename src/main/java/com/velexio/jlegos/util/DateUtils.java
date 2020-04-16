@@ -1,4 +1,4 @@
-package com.velexio.oss.jlegos.util;
+package com.velexio.jlegos.util;
 
 import java.text.ChoiceFormat;
 import java.text.DateFormat;
@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * </p>
  * Example: 1970.01.01 00:00:00 to represent January 01, 1970
  */
+@SuppressWarnings("IntegerDivisionInFloatingPointContext")
 public class DateUtils {
 
 
@@ -82,12 +83,10 @@ public class DateUtils {
         );
         ArrayList<String> returnValues = new ArrayList<>();
 
-        long year = Math.round((TimeUnit.MILLISECONDS.toDays(elapsedMillis) / 365));
-        long month = Math.round((TimeUnit.MILLISECONDS.toDays(elapsedMillis) / 30))
+        long year = Math.round(TimeUnit.MILLISECONDS.toDays(elapsedMillis) / 365);
+        long month = Math.round(TimeUnit.MILLISECONDS.toDays(elapsedMillis) / 30)
                 - yearsToMonths(year);
-        long x1 = Math.round((TimeUnit.MILLISECONDS.toDays(elapsedMillis)/7));
-        long x2 = monthsToWeeks(yearsToMonths(year));
-        long week = Math.round((TimeUnit.MILLISECONDS.toDays(elapsedMillis)/7))
+        long week = Math.round(TimeUnit.MILLISECONDS.toDays(elapsedMillis) / 7)
                 - monthsToWeeks(yearsToMonths(year))
                 - monthsToWeeks(month);
         long day = TimeUnit.MILLISECONDS.toDays(elapsedMillis)

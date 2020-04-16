@@ -1,7 +1,7 @@
-package com.velexio.oss.jlegos.util;
+package com.velexio.jlegos.util;
 
-import com.velexio.oss.jlegos.exceptions.ChecksumGenerationException;
-import com.velexio.oss.jlegos.exceptions.EnsureDirectoryException;
+import com.velexio.jlegos.exceptions.ChecksumGenerationException;
+import com.velexio.jlegos.exceptions.EnsureDirectoryException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,15 +22,17 @@ class FileUtilsTest {
 
     @BeforeEach
     void setupEach() throws IOException {
-        testStageDir.mkdirs();
         File existDir = new File(EXIST_DIR_PATH);
-        existDir.mkdir();
-        FileUtils.touchFile(BLOCK_FILE_PATH);
-        FileUtils.append(COPY_SOURCE_FILE_1, "source");
+        if (testStageDir.mkdirs() && existDir.mkdir()) {
+            FileUtils.touchFile(BLOCK_FILE_PATH);
+            FileUtils.append(COPY_SOURCE_FILE_1, "source");
+        } else {
+            fail("Unable to create test dir -> " + testStageDir.getAbsolutePath());
+        }
     }
 
     @AfterEach
-    void tearDownEach() {
+    void tearDownEach() throws IOException {
         FileUtils.deleteDirectory(testStageDir.getAbsolutePath());
     }
 
@@ -78,7 +80,7 @@ class FileUtilsTest {
     }
 
     @Test
-    void ensureDirectoryHandlesExisting() throws EnsureDirectoryException {
+    void ensureDirectoryHandlesExisting() {
         assertDoesNotThrow(() -> FileUtils.ensureDirectory(EXIST_DIR_PATH));
     }
 
@@ -93,13 +95,16 @@ class FileUtilsTest {
         File subDir = new File(testDir.getAbsolutePath() + "/subdir");
         String testFilePath = testDir.getAbsolutePath() + "/file.txt";
         String subFilePath = subDir.getAbsolutePath() + "/subfile.txt";
-        subDir.mkdirs();
-        FileUtils.touchFile(testFilePath);
-        FileUtils.touchFile(subFilePath);
-        assertTrue(new File(testFilePath).exists());
-        assertTrue(new File(subFilePath).exists());
-        FileUtils.deleteDirectory(testDir.getAbsolutePath());
-        assertFalse(testDir.exists());
+        if (subDir.mkdirs()) {
+            FileUtils.touchFile(testFilePath);
+            FileUtils.touchFile(subFilePath);
+            assertTrue(new File(testFilePath).exists());
+            assertTrue(new File(subFilePath).exists());
+            FileUtils.deleteDirectory(testDir.getAbsolutePath());
+            assertFalse(testDir.exists());
+        } else {
+            fail("Unable to create test directory -> " + subDir.getAbsolutePath());
+        }
     }
 
     @Test
@@ -127,9 +132,13 @@ class FileUtilsTest {
         String[] files = new String[]{testDir.getAbsolutePath() + "/file1.txt",
                 testDir.getAbsolutePath() + "/file2.txt",
                 testDir.getAbsolutePath() + "/file1.csv"};
-        testDir.mkdirs();
-        for (String fp : files) {
-            FileUtils.touchFile(fp);
+        if (testDir.mkdirs()) {
+            for (String fp : files) {
+                FileUtils.touchFile(fp);
+            }
+        } else {
+            fail("Unable to create test dir -> " + testDir.getAbsolutePath());
         }
     }
+
 }

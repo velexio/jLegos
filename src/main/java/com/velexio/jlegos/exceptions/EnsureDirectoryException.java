@@ -1,4 +1,4 @@
-package com.velexio.oss.jlegos.exceptions;
+package com.velexio.jlegos.exceptions;
 
 import java.io.File;
 import java.io.IOException;
