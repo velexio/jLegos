@@ -6,10 +6,20 @@
     <packaging>jar</packaging>
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
 
-    <name>jLegos</name>
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>Java Legos - A collection of common application functionality for Java projects</description>
+    <url>https://github.com/velexio/jLegos</url>
+
+    <developers>
+        <developer>
+            <name>Gerry Christiansen</name>
+            <email>gchristiansen@velexio.com</email>
+            <organization>Velexio</organization>
+            <organizationUrl>http://velexio.com</organizationUrl>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
@@ -30,7 +40,6 @@
         <url>https://github.com/velexio/jLegos</url>
         <connection>scm:git:git://github.com/velexio/jLegos.git</connection>
         <developerConnection>scm:git:git@github.com:velexio/jLegos.git</developerConnection>
-        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
@@ -72,8 +81,6 @@
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-
-
     </dependencies>
 
     <build>
