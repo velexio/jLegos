@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("IntegerDivisionInFloatingPointContext")
 public class DateUtils {
 
-
     private static final String DEFAULT_FORMAT_PATTERN = "yyyy.MM.dd HH:mm:ss";
 
     /**

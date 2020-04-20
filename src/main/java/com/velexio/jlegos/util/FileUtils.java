@@ -2,7 +2,8 @@ package com.velexio.jlegos.util;
 
 import com.velexio.jlegos.exceptions.ChecksumGenerationException;
 import com.velexio.jlegos.exceptions.EnsureDirectoryException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.*;
@@ -21,8 +22,8 @@ import java.util.zip.ZipOutputStream;
 /**
  * Contains some helpful utility methods for handling file operations.
  */
-@Slf4j
 public class FileUtils {
+    private static Logger log = LoggerFactory.getLogger(FileUtils.class);
     private static final int MAX_COPY_BUFFER = 8388608;
     private static final int MIN_COPY_BUFFER = 4;
     private static final int MAX_ZIP_BUFFER = 4194304;
@@ -105,9 +106,9 @@ public class FileUtils {
         if (!isFile(source)) {
             throw new FileNotFoundException("The file [ " + source + "] does not exist.  Copy terminated");
         }
-        List<CopyOption> copyOptions = new ArrayList<CopyOption>(List.of(StandardCopyOption.COPY_ATTRIBUTES));
+        List<CopyOption> copyOptions = new ArrayList<>(List.of(StandardCopyOption.COPY_ATTRIBUTES));
         if (options.length > 0) {
-            copyOptions = new ArrayList<CopyOption>();
+            copyOptions = new ArrayList<>();
             for (FileCopyOption option : options) {
                 copyOptions.add(option.getNioEquiv());
             }
@@ -126,9 +127,8 @@ public class FileUtils {
      *
      * @param currentPath String representing the path of the current file
      * @param newPath     String to represent the new name of the file
-     * @throws IOException If there is an issue during the move operation (i.e. permissions, invalid new path, etc)
      */
-    public static void rename(String currentPath, String newPath) throws IOException {
+    public static void rename(String currentPath, String newPath) {
         File source = new File(currentPath);
         File dest = new File(newPath);
         source.renameTo(dest);
@@ -295,7 +295,9 @@ public class FileUtils {
      */
     public static void createDirectory(String dirPath) throws IOException {
         File dir = new File(dirPath);
-        dir.mkdirs();
+        if (!dir.mkdirs()) {
+            throw new IOException("Unable to create directory");
+        }
     }
 
     /**
