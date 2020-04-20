@@ -2,8 +2,6 @@ package com.velexio.jlegos.util;
 
 import com.velexio.jlegos.exceptions.ChecksumGenerationException;
 import com.velexio.jlegos.exceptions.EnsureDirectoryException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.*;
@@ -23,7 +21,6 @@ import java.util.zip.ZipOutputStream;
  * Contains some helpful utility methods for handling file operations.
  */
 public class FileUtils {
-    private static Logger log = LoggerFactory.getLogger(FileUtils.class);
     private static final int MAX_COPY_BUFFER = 8388608;
     private static final int MIN_COPY_BUFFER = 4;
     private static final int MAX_ZIP_BUFFER = 4194304;
