@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -146,13 +145,14 @@ class FileUtilsTest {
     }
 
     @Test
-    void touchWorks() throws IOException {
+    void touchWorks() throws IOException, InterruptedException {
         String testFilePath = testStageDir.getAbsolutePath() + "/testTouchFile.txt";
         FileUtils.touch(testFilePath);
         File testFile = new File(testFilePath);
         assertTrue(testFile.exists(), "The file did not get created");
         long firstModified = testFile.lastModified();
         long firstLength = testFile.length();
+        Thread.sleep(1000);
         FileUtils.touch(testFilePath);
         long afterTouchModified = testFile.lastModified();
         long afterTouchLength = testFile.length();
@@ -165,7 +165,7 @@ class FileUtilsTest {
         String testFilePath = testStageDir.getAbsolutePath() + "/testAppendFile.txt";
         FileUtils.touch(testFilePath);
         FileUtils.append(testFilePath, "a", false);
-        assertTrue(FileUtils.sizeBytes(testFilePath) == 1.0);
+        assertEquals(1.0, FileUtils.sizeBytes(testFilePath));
         FileUtils.delete(testFilePath);
         FileUtils.touch(testFilePath);
         FileUtils.append(testFilePath, "a", true);
@@ -269,9 +269,7 @@ class FileUtilsTest {
             }
 
             int subdirIdx = Integer.parseInt(sd.substring(sd.length() - 1));
-            IntStream.range(0, subdirIdx + 1).forEach(n -> {
-                nestedDirs.add(sd + "/nestedDir" + n);
-            });
+            IntStream.range(0, subdirIdx + 1).forEach(n -> nestedDirs.add(sd + "/nestedDir" + n));
 
         }
 
@@ -284,9 +282,7 @@ class FileUtilsTest {
                     String nestedFilename = nd + "/file" + fn + ".txt";
                     FileUtils.touch(nestedFilename);
                     String[] writeEntries = new String[fn];
-                    IntStream.range(1, fn + 1).forEach(wen -> {
-                        writeEntries[wen-1] = "entry:"+wen;
-                    });
+                    IntStream.range(1, fn + 1).forEach(wen -> writeEntries[wen - 1] = "entry:" + wen);
                     for (String entry: writeEntries) {
                         FileUtils.append(nestedFilename, entry, false);
                     }
@@ -373,11 +369,7 @@ class FileUtilsTest {
             FileUtils.touch(fp);
             String fileName = fp.substring(fp.lastIndexOf("/") + 1);
             for (int n = 0; n < 500; n++) {
-                try {
-                    FileUtils.append(fp, fileName + ":" + n, true);
-                } catch (IOException e) {
-                    throw e;
-                }
+                FileUtils.append(fp, fileName + ":" + n, true);
             }
         }
 
