@@ -30,7 +30,7 @@ class DateUtilsTest {
     }
 
     @Test
-    void secondsDisplayWorks() {
+    void elapsedFormattedSecondsDisplayWorks() {
         Calendar end1 = new GregorianCalendar(2008, Calendar.SEPTEMBER, 1, 0, 0, 0);
         elapsed = end1.getTimeInMillis() - baseCal.getTimeInMillis();
         assertEquals("Under a second", DateUtils.getFormattedElapsedTime(elapsed));
@@ -43,7 +43,7 @@ class DateUtilsTest {
     }
 
     @Test
-    void minutesDisplayWorks() {
+    void elapsedFormattedMinutesDisplayWorks() {
         Calendar end1 = new GregorianCalendar(2008, Calendar.SEPTEMBER, 1, 0, 1, 0);
         elapsed = end1.getTimeInMillis() - baseCal.getTimeInMillis();
         assertEquals("1 minute", DateUtils.getFormattedElapsedTime(elapsed));
@@ -59,7 +59,7 @@ class DateUtilsTest {
     }
 
     @Test
-    void hourDisplayWorks() {
+    void elapsedFormattedHoursDisplayWorks() {
         Calendar end1 = new GregorianCalendar(2008, Calendar.SEPTEMBER, 1, 1, 0, 0);
         elapsed = end1.getTimeInMillis() - baseCal.getTimeInMillis();
         assertEquals("1 hour", DateUtils.getFormattedElapsedTime(elapsed));
@@ -75,7 +75,7 @@ class DateUtilsTest {
     }
 
     @Test
-    void dayDisplayWorks() {
+    void elapsedFormattedDayDisplayWorks() {
         Calendar end1 = new GregorianCalendar(2008, Calendar.SEPTEMBER, 2, 0, 0, 0);
         elapsed = end1.getTimeInMillis() - baseCal.getTimeInMillis();
         assertEquals("1 day", DateUtils.getFormattedElapsedTime(elapsed));
@@ -94,7 +94,7 @@ class DateUtilsTest {
     }
 
     @Test
-    void weekDisplayWorks() {
+    void elapsedFormattedWeekDisplayWorks() {
         Calendar end1 = new GregorianCalendar(2008, Calendar.SEPTEMBER, 8, 0, 0, 0);
         elapsed = end1.getTimeInMillis() - baseCal.getTimeInMillis();
         assertEquals("1 week", DateUtils.getFormattedElapsedTime(elapsed));
@@ -113,7 +113,7 @@ class DateUtilsTest {
     }
 
     @Test
-    void monthDisplayWorks() {
+    void elapsedFormattedMonthDisplayWorks() {
         Calendar end1 = new GregorianCalendar(2008, Calendar.OCTOBER, 1, 0, 0, 0);
         elapsed = end1.getTimeInMillis() - baseCal.getTimeInMillis();
         assertEquals("~ 1 month", DateUtils.getFormattedElapsedTime(elapsed));
@@ -129,13 +129,42 @@ class DateUtilsTest {
     }
 
     @Test
-    void yearDisplayWorks() {
+    void elapsedFormattedYearDisplayWorks() {
         Calendar end1 = new GregorianCalendar(2009, Calendar.SEPTEMBER, 1, 0, 0, 0);
         elapsed = end1.getTimeInMillis() - baseCal.getTimeInMillis();
         assertEquals("~ 1 year", DateUtils.getFormattedElapsedTime(elapsed));
         Calendar end2 = new GregorianCalendar(2010, Calendar.SEPTEMBER, 1, 0, 0, 0);
         elapsed = end2.getTimeInMillis() - baseCal.getTimeInMillis();
         assertEquals("~ 2 years", DateUtils.getFormattedElapsedTime(elapsed));
+    }
+
+    @Test
+    void addDaysWorks() {
+        Date end1 = new GregorianCalendar(2008, Calendar.SEPTEMBER, 2, 0, 0, 0).getTime();
+        assertEquals(end1, DateUtils.addDays(baseCal.getTime(), 1));
+    }
+
+    @Test
+    void addHoursWorks() {
+        Date end1 = new GregorianCalendar(2008, Calendar.SEPTEMBER, 1, 4, 0, 0).getTime();
+        assertEquals(end1, DateUtils.addHours(baseCal.getTime(), 4));
+    }
+
+    @Test
+    void diffToDaysWorks() {
+        Date end = new GregorianCalendar(2008, Calendar.SEPTEMBER, 2, 0, 0, 0).getTime();
+        assertEquals(1, DateUtils.diffToDays(baseCal.getTime(), end));
+        end = new GregorianCalendar(2008, Calendar.SEPTEMBER, 3, 0, 0, 0).getTime();
+        double diff = DateUtils.diffToDays(baseCal.getTime(), end);
+        assertEquals(2, diff);
+    }
+
+    @Test
+    void diffToHoursWorks() {
+        Date end = new GregorianCalendar(2008, Calendar.SEPTEMBER, 1, 12, 0, 0).getTime();
+        assertEquals(12, DateUtils.diffToHours(baseCal.getTime(), end));
+        end = new GregorianCalendar(2008, Calendar.SEPTEMBER, 2, 4, 0, 0).getTime();
+        assertEquals(28, DateUtils.diffToHours(baseCal.getTime(), end));
     }
 
 }
