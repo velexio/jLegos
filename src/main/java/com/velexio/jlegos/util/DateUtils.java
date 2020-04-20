@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -215,12 +216,142 @@ public class DateUtils {
 
     }
 
+    /**
+     * Will add the specified number of days to an existing Date object and return the new Date
+     *
+     * @param date      The base date object to add time
+     * @param daysToAdd The number of days to add
+     * @return A new Date object with the number of days added
+     */
+    public static Date addDays(Date date, int daysToAdd) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, daysToAdd);
+        return cal.getTime();
+    }
+
+    /**
+     * Will add the specified number of hours to an existing Date object and return the new Date
+     *
+     * @param date       The base date object to add time
+     * @param hoursToAdd The number of hours to add
+     * @return A new Date object with the number of hours added
+     */
+    public static Date addHours(Date date, int hoursToAdd) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.HOUR, hoursToAdd);
+        return cal.getTime();
+    }
+
+    /**
+     * Will add the specified number of minutes to an existing Date object and return the new Date
+     *
+     * @param date         The base date object to add time
+     * @param minutesToAdd The number of minutes to add
+     * @return A new Date object with the number of minutes added
+     */
+    public static Date addMinutes(Date date, int minutesToAdd) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.MINUTE, minutesToAdd);
+        return cal.getTime();
+    }
+
+    /**
+     * Will add the specified number of seconds to an existing Date object and return the new Date
+     *
+     * @param date         The base date object to add time
+     * @param secondsToAdd The number of seconds to add
+     * @return A new Date object with the number of seconds added
+     */
+    public static Date addSeconds(Date date, int secondsToAdd) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.SECOND, secondsToAdd);
+        return cal.getTime();
+    }
+
+    /**
+     * Converts the difference between two date objects to number of milliseconds.
+     * <p>
+     * <b>Note:</b> The date order is note relevant as the calculation as the return is an absolute value. It is up to the caller to determine if it
+     * should be a positive/negative value.
+     * </p>
+     *
+     * @param firstDate  The first date to compare
+     * @param secondDate The second date to compare
+     * @return A long representing the difference in milliseconds
+     */
+    public static long diffToMillis(Date firstDate, Date secondDate) {
+        return Math.abs(secondDate.getTime() - firstDate.getTime());
+    }
+
+    /**
+     * Converts the difference between two date objects to number of seconds. The value is always rounded down to the nearest whole value.
+     * <p>
+     * <b>Note:</b> The date order is note relevant as the calculation as the return is an absolute value. It is up to the caller to determine if it
+     * should be a positive/negative value.
+     * </p>
+     *
+     * @param firstDate  The first date to compare
+     * @param secondDate The second date to compare
+     * @return A long representing the difference in seconds
+     */
+    public static long diffToSeconds(Date firstDate, Date secondDate) {
+        return TimeUnit.SECONDS.convert(DateUtils.diffToMillis(firstDate, secondDate), TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Converts the difference between two date objects to number of minutes. The value is always rounded down to the nearest whole value.
+     * <p>
+     * <b>Note:</b> The date order is note relevant as the calculation as the return is an absolute value. It is up to the caller to determine if it
+     * should be a positive/negative value.
+     * </p>
+     *
+     * @param firstDate  The first date to compare
+     * @param secondDate The second date to compare
+     * @return A long representing the difference in minutes
+     */
+    public static long diffToMinutes(Date firstDate, Date secondDate) {
+        return TimeUnit.MINUTES.convert(DateUtils.diffToMillis(firstDate, secondDate), TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Converts the difference between two date objects to number of hours. The value is always rounded down to the nearest whole value.
+     * <p>
+     * <b>Note:</b> The date order is note relevant as the calculation as the return is an absolute value. It is up to the caller to determine if it
+     * should be a positive/negative value.
+     * </p>
+     *
+     * @param firstDate  The first date to compare
+     * @param secondDate The second date to compare
+     * @return A long representing the difference in hours
+     */
+    public static long diffToHours(Date firstDate, Date secondDate) {
+        return TimeUnit.HOURS.convert(DateUtils.diffToMillis(firstDate, secondDate), TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Converts the difference between to dates to number of days. The value is always rounded down to the nearest whole value.
+     * <p>
+     * <b>Note:</b> The date order is note relevant as the calculation as the return is an absolute value. It is up to the caller to determine if it
+     * should be a positive/negative value.
+     * </p>
+     *
+     * @param firstDate  The first date to compare
+     * @param secondDate The second date to compare
+     * @return A long representing the difference in days
+     */
+    public static long diffToDays(Date firstDate, Date secondDate) {
+        return TimeUnit.DAYS.convert(DateUtils.diffToMillis(firstDate, secondDate), TimeUnit.MILLISECONDS);
+    }
+
     private static long weeksToDays(long weeks) {
         return weeks * 7;
     }
 
     private static long monthsToWeeks(long months) {
-//        return Math.round(months * 4.34524);
         return (long) Math.floor(months * 4.34524);
     }
 
