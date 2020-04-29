@@ -13,5 +13,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 public @interface DTOField {
-    DTOClassType[] dtoClassTypes() default {DTOClassType.BASE_DTO};
+    DTOClassType[] dtoClassTypes() default {DTOClassType.BASE_DTO, DTOClassType.CREATE_DTO, DTOClassType.UPDATE_DTO};
 }
