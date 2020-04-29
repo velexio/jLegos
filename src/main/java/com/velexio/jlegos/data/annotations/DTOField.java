@@ -1,6 +1,6 @@
 package com.velexio.jlegos.data.annotations;
 
-import com.velexio.jlegos.data.enums.DTOFieldScope;
+import com.velexio.jlegos.data.enums.DTOClassType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -13,5 +13,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 public @interface DTOField {
-    DTOFieldScope[] dtoTypes() default {DTOFieldScope.BASE_DTO};
+    DTOClassType[] dtoClassTypes() default {DTOClassType.BASE_DTO};
 }

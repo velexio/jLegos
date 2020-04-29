@@ -1,6 +1,6 @@
 package com.velexio.jlegos.data.enums;
 
-public enum DTOFieldScope {
+public enum DTOClassType {
 
     BASE_DTO(Names.BASE_NAME),
     CREATE_DTO(Names.CREATE_NAME),
@@ -8,7 +8,7 @@ public enum DTOFieldScope {
     DELETE_DTO(Names.DELETE_NAME);
 
 
-    DTOFieldScope(String name) {
+    DTOClassType(String name) {
     }
 
     public static class Names {
