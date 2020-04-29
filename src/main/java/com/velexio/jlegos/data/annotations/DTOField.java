@@ -13,5 +13,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 public @interface DTOField {
-    DTOFieldScope[] scopes = new DTOFieldScope[]{DTOFieldScope.BASE};
+    DTOFieldScope[] dtoTypes() default {DTOFieldScope.BASE_DTO};
 }
