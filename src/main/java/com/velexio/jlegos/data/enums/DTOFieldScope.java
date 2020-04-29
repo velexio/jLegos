@@ -7,6 +7,7 @@ public enum DTOFieldScope {
     UPDATE_DTO(Names.UPDATE_NAME),
     DELETE_DTO(Names.DELETE_NAME);
 
+
     DTOFieldScope(String name) {
     }
 
