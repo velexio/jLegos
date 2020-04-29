@@ -1,6 +1,7 @@
 package com.velexio.jlegos.data.enums;
 
 public enum DTOFieldScope {
+
     BASE_DTO(Names.BASE_NAME),
     CREATE_DTO(Names.CREATE_NAME),
     UPDATE_DTO(Names.UPDATE_NAME),
