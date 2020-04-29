@@ -4,8 +4,7 @@
     <packaging>jar</packaging>
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
-    <version>0.11.2-alpha-SNAPSHOT</version>
-
+    <version>0.11.3-alpha-SNAPSHOT</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Java Legos - A collection of common application functionality for Java projects</description>
