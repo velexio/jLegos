@@ -18,8 +18,8 @@ public enum DTOClassType {
         public static final String DELETE_NAME = "DELETE_DTO";
     }
 
-    public String getSuffix(DTOClassType classType) {
-        switch (classType) {
+    public String getSuffix() {
+        switch (this) {
             case CREATE_DTO:
                 return "CreateDTO";
             case UPDATE_DTO:
