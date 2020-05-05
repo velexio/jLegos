@@ -7,11 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DTOClassTypeTest {
 
     @Test
-    void getBaseSuffixWorks() {
-        assertEquals("DTO", DTOClassType.BASE_DTO.getSuffix());
-    }
-
-    @Test
     void getCreateSuffixWorks() {
         assertEquals("CreateDTO", DTOClassType.CREATE_DTO.getSuffix());
     }
@@ -21,9 +16,5 @@ class DTOClassTypeTest {
         assertEquals("UpdateDTO", DTOClassType.UPDATE_DTO.getSuffix());
     }
 
-    @Test
-    void getDeleteSuffixWorks() {
-        assertEquals("DeleteDTO", DTOClassType.DELETE_DTO.getSuffix());
-    }
 
 }
