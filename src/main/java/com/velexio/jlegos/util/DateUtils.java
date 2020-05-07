@@ -91,6 +91,27 @@ public class DateUtils {
     }
 
     /**
+     * Will format a Date to the specified pattern.  Pattern must be a valid SimpleDateFormat pattern.
+     *
+     * @param date                    The date to format.
+     * @param simpleDateFormatPattern Format pattern. Must be valid SimpleDateFormat pattern.
+     * @return String in format specified
+     */
+    public String formatted(Date date, String simpleDateFormatPattern) {
+        return DateUtils.formatMillis(date.getTime(), simpleDateFormatPattern);
+    }
+
+    /**
+     * REturns the date as a formatted string useing the DEFAULT_FORMAT_PATTERN
+     *
+     * @param date The date to format
+     * @return The string in the default format pattern
+     */
+    public String formatted(Date date) {
+        return DateUtils.formatMillis(date.getTime());
+    }
+
+    /**
      * Returns a string in the format "1970.01.01 00:00:00" for the millisecond representation for the
      * Date of February 23, 1975 at 00:00:00 AM.  If you want a different format, use the overloaded
      * method that support supplying the correct format.

@@ -2,6 +2,7 @@ package com.velexio.jlegos.util;
 
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,6 +28,25 @@ class DateUtilsTest {
         String cf02 = "2008-Sep-01 00:00:00";
         assertEquals(cf01, DateUtils.formatMillis(baseDate.getTime(), "yyyy.MMM.dd HH:mm:ss"));
         assertEquals(cf02, DateUtils.formatMillis(baseDate.getTime(), "yyyy-MMM-dd HH:mm:ss"));
+    }
+
+    @Test
+    void testDateFromStringWorks() throws ParseException {
+        Calendar cal = new GregorianCalendar(2008, Calendar.SEPTEMBER, 1, 0, 1, 30);
+        Date baseDate = cal.getTime();
+        String tc1 = "2008.09.01 00:01:30";
+        assertEquals(baseDate, DateUtils.dateFromString(tc1));
+        String tc2 = "2008.09.01 00:01:30.515";
+        cal.add(Calendar.MILLISECOND, 515);
+        baseDate = cal.getTime();
+        assertEquals(baseDate, DateUtils.dateFromString(tc2, "yyyy.MM.dd HH:mm:ss.SSS"));
+        assertEquals(tc2, DateUtils.formatMillis(baseDate.getTime(), "yyyy.MM.dd HH:mm:ss.SSS"));
+        String tc3 = "2019.10.24 12:46:19.515";
+        Calendar cal3 = new GregorianCalendar(2019, Calendar.OCTOBER, 24, 12, 46, 19);
+        cal3.add(Calendar.MILLISECOND, 515);
+        Date date3 = cal3.getTime();
+        assertEquals(date3, DateUtils.dateFromString(tc3, "yyyy.MM.dd HH:mm:ss.SSS"));
+
     }
 
     @Test
