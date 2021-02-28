@@ -4,7 +4,7 @@
     <packaging>jar</packaging>
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
-    <version>0.13.1-SNAPSHOT</version>
+    <version>0.13.1</version>
 
 
 
@@ -33,7 +33,7 @@
         <connection>scm:git:git://github.com/velexio/jLegos.git</connection>
         <developerConnection>scm:git:ssh@github.com:velexio/jLegos.git</developerConnection>
         <url>https://github.com/velexio/jLegos/tree/master</url>
-        <tag>jLegos-0.13.0</tag>
+        <tag>release-0.13.1</tag>
   </scm>
 
     <issueManagement>
