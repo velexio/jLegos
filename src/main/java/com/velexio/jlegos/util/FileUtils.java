@@ -289,9 +289,11 @@ public class FileUtils {
      *
      * @param filePath    String representation of the path to the file you want to append to
      * @param appendValue String value that you want appended to the file
-     * @param asNewLine Set as true if the appended value should be set on a new line in the file. False will just append to the end of the file.
+     * @param asNewLine   Set as true if the appended value should be set on a new line in the file. False will just append to the end of the file.
      * @throws IOException Will be raised if there is an issue writing to the file
+     * @deprecated Please use write or writeLines methods
      */
+    @Deprecated
     public static void append(String filePath, String appendValue, boolean asNewLine) throws IOException {
         File appendFile = new File(filePath);
         FileWriter fw = new FileWriter(appendFile, true);
@@ -299,6 +301,40 @@ public class FileUtils {
             appendValue = System.lineSeparator() + appendValue;
         }
         fw.append(appendValue);
+        fw.close();
+    }
+
+    /**
+     * Method that will write a list of strings to a file.  To stay as flexible as possible, if you would line each line in the list to be
+     * added to a new line, you will need to include the line separator. The line separator (although most common use case) is not added so
+     * that this method can be used for use cases where each line is just appended to end of file.
+     *
+     * @param filePath A string representing the path to the file
+     * @param lines    A list of strings to be written to the file
+     * @throws IOException
+     */
+    public static void writeLines(String filePath, List<String> lines) throws IOException {
+        File appendFile = new File(filePath);
+        FileWriter fw = new FileWriter(appendFile, true);
+        for (String line : lines) {
+            fw.append(line);
+        }
+        fw.close();
+    }
+
+    /**
+     * Will write a string value to a file. Content can be written with either append mode or not.  If append is set to false, then writing begins
+     * at first line of file.
+     *
+     * @param filePath A string representing the path to the file
+     * @param content  The content that is to be written
+     * @param append   boolean to indicate if content should be appended or not
+     * @throws IOException
+     */
+    public static void write(String filePath, String content, boolean append) throws IOException {
+        File file = new File(filePath);
+        FileWriter fw = new FileWriter(file, append);
+        fw.write(content);
         fw.close();
     }
 

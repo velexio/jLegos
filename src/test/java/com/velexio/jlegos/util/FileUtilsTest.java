@@ -2,6 +2,7 @@ package com.velexio.jlegos.util;
 
 import com.velexio.jlegos.exceptions.ChecksumGenerationException;
 import com.velexio.jlegos.exceptions.EnsureDirectoryException;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -339,6 +342,7 @@ class FileUtilsTest {
         assertEquals(4.0, sizeInMB);
     }
 
+
 //    @Test
 //    void sizeGBytesWorks() throws IOException {
 //        String testFilePath = testStageDir + "/sizeFileTest.txt";
@@ -348,6 +352,51 @@ class FileUtilsTest {
 //        double sizeInGB = FileUtils.sizeGB(testFilePath);
 //        assertEquals(1.0, sizeInGB);
 //    }
+
+
+    @Test
+    @SneakyThrows
+    void writeLinesWorks() {
+        String writeFileAPath = "src/test/resources/FileUtils/write-file-a.txt";
+        String writeFileBPath = "src/test/resources/FileUtils/write-file-b.txt";
+        File writeFileA = new File(writeFileAPath);
+        File writeFileB = new File(writeFileBPath);
+        FileUtils.copyFile(writeFileA.getAbsolutePath(), writeFileB.getAbsolutePath(), FileCopyOption.REPLACE_EXISTING);
+        List<String> lines = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            lines.add("This is new line " + i + System.lineSeparator());
+        }
+        String appendString = "This is some new content as a new line";
+        FileUtils.writeLines(writeFileBPath, lines);
+        List<String> fileLines = Files.readAllLines(Paths.get(writeFileB.getAbsolutePath()));
+        assertEquals("This is new line 2", fileLines.get(2));
+        assertEquals(11, fileLines.size());
+        FileUtils.delete(writeFileB.getAbsolutePath());
+    }
+
+    @Test
+    @SneakyThrows
+    void writeWorks() {
+        String writeFileAPath = "src/test/resources/FileUtils/write-file-a.txt";
+        String writeFileBPath = "src/test/resources/FileUtils/write-file-b.txt";
+        File writeFileA = new File(writeFileAPath);
+        File writeFileB = new File(writeFileBPath);
+        FileUtils.copyFile(writeFileA.getAbsolutePath(), writeFileB.getAbsolutePath(), FileCopyOption.REPLACE_EXISTING);
+        String writeContentA = "Simple string to write";
+        FileUtils.write(writeFileB.getAbsolutePath(), writeContentA, false);
+        List<String> fileLines = Files.readAllLines(Paths.get(writeFileB.getAbsolutePath()));
+        assertEquals(1, fileLines.size());
+        FileUtils.delete(writeFileB.getAbsolutePath());
+        FileUtils.copyFile(writeFileA.getAbsolutePath(), writeFileB.getAbsolutePath(), FileCopyOption.REPLACE_EXISTING);
+        String writeContentB = "This string should be added to the original";
+        FileUtils.write(writeFileB.getAbsolutePath(), writeContentB, true);
+        fileLines = Files.readAllLines(Paths.get(writeFileB.getAbsolutePath()));
+        assertEquals(2, fileLines.size());
+        assertEquals(writeContentB, fileLines.get(1));
+        FileUtils.delete(writeFileB.getAbsolutePath());
+
+    }
+
 
     private void setupDirGetFilesTests(String baseDirPath) throws IOException {
         File testDir = new File(testStageDir.getAbsolutePath() + "/testdir");
