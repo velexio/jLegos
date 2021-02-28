@@ -1,5 +1,6 @@
 package com.velexio.jlegos.util;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -28,6 +29,17 @@ class DateUtilsTest {
         String cf02 = "2008-Sep-01 00:00:00";
         assertEquals(cf01, DateUtils.formatMillis(baseDate.getTime(), "yyyy.MMM.dd HH:mm:ss"));
         assertEquals(cf02, DateUtils.formatMillis(baseDate.getTime(), "yyyy-MMM-dd HH:mm:ss"));
+    }
+
+    @Test
+    void testTimestamp() throws ParseException {
+        Calendar cal = new GregorianCalendar(2020, Calendar.JANUARY, 1, 8, 10, 30);
+        String oraTimestamp = "2020-01-01 08:10:30.345";
+        String converted = "2020-01-01 08:10:30.345";
+        Date date = DateUtils.dateFromString(oraTimestamp, "yyyy-MM-dd HH:mm:ss.SSS");
+        String dateConverted = DateUtils.formatMillis(date.getTime(), "yyyy-MM-dd HH:mm:ss.SSS");
+        assertEquals(converted, dateConverted);
+
     }
 
     @Test
@@ -177,6 +189,8 @@ class DateUtilsTest {
         end = new GregorianCalendar(2008, Calendar.SEPTEMBER, 3, 0, 0, 0).getTime();
         double diff = DateUtils.diffToDays(baseCal.getTime(), end);
         assertEquals(2, diff);
+        end = new GregorianCalendar(2008, Calendar.SEPTEMBER, 3, 23, 0, 0).getTime();
+        assertEquals(2, DateUtils.diffToDays(baseCal.getTime(), end));
     }
 
     @Test

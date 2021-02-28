@@ -4,7 +4,8 @@
     <packaging>jar</packaging>
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
-    <version>0.12.2-alpha-SNAPSHOT</version>
+    <version>0.13.1-SNAPSHOT</version>
+
 
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -32,7 +33,7 @@
         <connection>scm:git:git://github.com/velexio/jLegos.git</connection>
         <developerConnection>scm:git:ssh@github.com:velexio/jLegos.git</developerConnection>
         <url>https://github.com/velexio/jLegos/tree/master</url>
-        <tag>release-0.12.1-alpha</tag>
+        <tag>jLegos-0.13.0</tag>
   </scm>
 
     <issueManagement>
@@ -53,7 +54,7 @@
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
-        <lombok.version>1.18.12</lombok.version>
+        <lombok.version>1.18.18</lombok.version>
         <slf4j.version>1.7.30</slf4j.version>
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
     </properties>
@@ -69,7 +70,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>
@@ -108,7 +109,7 @@
                         <id>default-deploy</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy</goal>
+                            <goal>d8eploy</goal>
                         </goals>
                     </execution>
                 </executions>

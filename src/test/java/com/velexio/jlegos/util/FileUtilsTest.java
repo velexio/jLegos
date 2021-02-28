@@ -33,7 +33,7 @@ class FileUtilsTest {
         } else {
             fail("Unable to create test dir -> " + testStageDir.getAbsolutePath());
         }
-//        System.out.println("Test stage dir is -> " + testStageDir.getAbsolutePath());
+        System.out.println("Test stage dir is -> " + testStageDir.getAbsolutePath());
     }
 
     @AfterEach
@@ -333,21 +333,21 @@ class FileUtilsTest {
     void sizeMBytesWorks() throws IOException {
         String testFilePath = testStageDir + "/sizeFileTest.txt";
         FileWriter fw = new FileWriter(testFilePath);
-        fw.write("a".repeat(4 * (1024*1024)));
+        fw.write("a".repeat(4 * (1024 * 1024)));
         fw.close();
         double sizeInMB = FileUtils.sizeMB(testFilePath);
         assertEquals(4.0, sizeInMB);
     }
 
-    @Test
-    void sizeGBytesWorks() throws IOException {
-        String testFilePath = testStageDir + "/sizeFileTest.txt";
-        FileWriter fw = new FileWriter(testFilePath);
-        fw.write("a".repeat(1024*1024*1024));
-        fw.close();
-        double sizeInGB = FileUtils.sizeGB(testFilePath);
-        assertEquals(1.0, sizeInGB);
-    }
+//    @Test
+//    void sizeGBytesWorks() throws IOException {
+//        String testFilePath = testStageDir + "/sizeFileTest.txt";
+//        FileWriter fw = new FileWriter(testFilePath);
+//        fw.write("a".repeat(1024*1024*1024));
+//        fw.close();
+//        double sizeInGB = FileUtils.sizeGB(testFilePath);
+//        assertEquals(1.0, sizeInGB);
+//    }
 
     private void setupDirGetFilesTests(String baseDirPath) throws IOException {
         File testDir = new File(testStageDir.getAbsolutePath() + "/testdir");
