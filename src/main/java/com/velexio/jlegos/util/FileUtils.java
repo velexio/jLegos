@@ -74,19 +74,79 @@ public class FileUtils {
         return file.exists();
     }
 
+    /**
+     * Determines if the file at path is a directory
+     *
+     * @param dirPath The path to the directory to check
+     * @return boolean
+     */
     public static boolean isDir(String dirPath) {
         File file = new File(dirPath);
         return file.isDirectory();
     }
 
+    /**
+     * Determines if the file at path is a file (not a directory)
+     *
+     * @param filePath The path to the file to check
+     * @return boolean
+     */
     public static boolean isFile(String filePath) {
         File file = new File(filePath);
         return file.isFile();
     }
 
+    /**
+     * Determines if the file at path is a hidden file
+     *
+     * @param filePath The path to the file to check
+     * @return boolean
+     */
     public static boolean isHidden(String filePath) {
         File file = new File(filePath);
         return file.isHidden();
+    }
+
+    /**
+     * Returns boolean based on if file is writable by process
+     *
+     * @param filePath String path to the file
+     * @return boolean
+     */
+    public static boolean isWriteable(String filePath) {
+        File file = new File(filePath);
+        return isWriteable(file);
+    }
+
+    /**
+     * Returns boolean based on if file is writable by process
+     *
+     * @param file File object to check
+     * @return boolean
+     */
+    public static boolean isWriteable(File file) {
+        return file.canWrite();
+    }
+
+    /**
+     * Returns boolean based on if file is readable by process
+     *
+     * @param filePath String path to the file
+     * @return boolean
+     */
+    public static boolean isReadable(String filePath) {
+        File file = new File(filePath);
+        return isReadable(file);
+    }
+
+    /**
+     * Returns boolean base on if file is readable by process
+     *
+     * @param file File object to check
+     * @return boolean
+     */
+    public static boolean isReadable(File file) {
+        return file.canRead();
     }
 
     /**
