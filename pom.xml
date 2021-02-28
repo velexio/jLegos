@@ -53,7 +53,7 @@
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
-        <lombok.version>1.18.12</lombok.version>
+        <lombok.version>1.18.18</lombok.version>
         <slf4j.version>1.7.30</slf4j.version>
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
     </properties>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>${lombok.version}</version>
         </dependency>
 
         <dependency>
@@ -108,7 +108,7 @@
                         <id>default-deploy</id>
                         <phase>deploy</phase>
                         <goals>
-                            <goal>deploy</goal>
+                            <goal>d8eploy</goal>
                         </goals>
                     </execution>
                 </executions>
