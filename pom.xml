@@ -6,8 +6,6 @@
     <artifactId>jLegos</artifactId>
     <version>0.13.2-SNAPSHOT</version>
 
-
-
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Java Legos - A collection of common application functionality for Java projects</description>
     <url>https://github.com/velexio/jLegos</url>

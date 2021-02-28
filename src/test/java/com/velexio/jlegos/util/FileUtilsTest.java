@@ -36,7 +36,7 @@ class FileUtilsTest {
         } else {
             fail("Unable to create test dir -> " + testStageDir.getAbsolutePath());
         }
-//        System.out.println("Test stage dir is -> " + testStageDir.getAbsolutePath());
+        System.out.println("Test stage dir is -> " + testStageDir.getAbsolutePath());
     }
 
     @AfterEach
@@ -353,6 +353,7 @@ class FileUtilsTest {
 //        assertEquals(1.0, sizeInGB);
 //    }
 
+
     @Test
     @SneakyThrows
     void writeLinesWorks() {
@@ -395,6 +396,7 @@ class FileUtilsTest {
         FileUtils.delete(writeFileB.getAbsolutePath());
 
     }
+
 
     private void setupDirGetFilesTests(String baseDirPath) throws IOException {
         File testDir = new File(testStageDir.getAbsolutePath() + "/testdir");
