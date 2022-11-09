@@ -4,7 +4,7 @@
     <packaging>jar</packaging>
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
-    <version>0.14.2-SNAPSHOT</version>
+    <version>0.14.2</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Java Legos - A collection of common application functionality for Java projects</description>
@@ -31,7 +31,7 @@
         <connection>scm:git:git://github.com/velexio/jLegos.git</connection>
         <developerConnection>scm:git:ssh@github.com:velexio/jLegos.git</developerConnection>
         <url>https://github.com/velexio/jLegos/tree/master</url>
-        <tag>jLegos-0.14.0</tag>
+        <tag>jLegos-0.14.2</tag>
   </scm>
 
     <issueManagement>
@@ -53,7 +53,7 @@
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
         <lombok.version>1.18.24</lombok.version>
-        <slf4j.version>1.7.30</slf4j.version>
+        <slf4j.version>2.0.3</slf4j.version>
         <maven.deploy.plugin.version>3.0.0</maven.deploy.plugin.version>
         <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
         <maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
@@ -64,7 +64,7 @@
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-        <junit.jupiter.version>5.6.2</junit.jupiter.version>
+        <junit.jupiter.version>5.9.0</junit.jupiter.version>
 
     </properties>
 
@@ -76,12 +76,11 @@
             <version>${lombok.version}</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.maven.plugins</groupId>-->
-        <!--            <artifactId>maven-gpg-plugin</artifactId>-->
-        <!--            <version>3.0.1</version>-->
-        <!--            <type>maven-plugin</type>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
