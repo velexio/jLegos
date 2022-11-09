@@ -336,13 +336,14 @@ class FileUtilsTest {
     }
 
 
-    @Test
-    void uncompressTarBallWorks() throws IOException {
-        String filePath = "src/test/resources/FileUtils/zipFiles/svelte-ionic.tar.gz";
-        File file = new File(filePath);
-        FileUtils.unzip(file.getAbsolutePath());
-        System.out.println("here");
-    }
+    //ToDo: Implement functionality in future release
+//    @Test
+//    void uncompressTarBallWorks() throws IOException {
+//        String filePath = "src/test/resources/FileUtils/zipFiles/svelte-ionic.tar.gz";
+//        File file = new File(filePath);
+//        FileUtils.unzip(file.getAbsolutePath());
+//        System.out.println("here");
+//    }
 
     @Test
     void sizeBytesWorks() throws IOException {
