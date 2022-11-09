@@ -5,6 +5,7 @@ import com.velexio.jlegos.exceptions.EnsureDirectoryException;
 
 import java.io.*;
 import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -394,6 +395,46 @@ public class FileUtils {
     }
 
     /**
+     * <p>
+     * Will recursively copy a directory to destination directory
+     * </p>
+     *
+     * @param sourceDir Directory path to copy
+     * @param targetDir Target parent directory will source directory will be written
+     * @throws IOException
+     */
+    public static void copyDirectory(String sourceDir, String targetDir, FileCopyOption... options) throws IOException {
+        Path sourcePath = Paths.get(sourceDir);
+        Path targetPath = Paths.get(targetDir);
+
+        List<CopyOption> copyOptions = new ArrayList<>(List.of(StandardCopyOption.COPY_ATTRIBUTES));
+        if (options.length > 0) {
+            copyOptions = new ArrayList<>();
+            for (FileCopyOption option : options) {
+                copyOptions.add(option.getNioEquiv());
+            }
+        }
+
+        final CopyOption[] finalCopyOptions = copyOptions.toArray(new CopyOption[0]);
+        Files.walkFileTree(sourcePath, new SimpleFileVisitor<Path>() {
+
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
+                    throws IOException {
+                Files.createDirectories(targetPath.resolve(sourcePath.relativize(dir)));
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+                    throws IOException {
+                Files.copy(file, targetPath.resolve(sourcePath.relativize(file)), finalCopyOptions);
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
+
+    /**
      * Removes a directory in a recursive fashion. Meaning it will not only remove non-empty directories (unlike file.delete), but it will also
      * follow any sub-directories and remove those as well.
      *
@@ -458,6 +499,46 @@ public class FileUtils {
         if (delinquentList.size() > 0) {
             throw new IOException(getDelinquentListErrorMessage(delinquentList));
         }
+    }
+
+    /**
+     * <p>
+     * Will get a count of all immediate regular files (non-dirs) that are directly in
+     * the directory (This does not search subfolders)
+     * </p>
+     *
+     * @param directoryPath
+     * @return
+     */
+    public static int getDirectoryFileCount(String directoryPath) {
+        int count = 0;
+        List<File> fileList = getDirectoryFiles(directoryPath);
+        for (File f : fileList) {
+            if (f.isFile()) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * <p>
+     * Will get a count of immediate directories in specified folder path. Will NOT perform
+     * the count recursively.
+     * </p>
+     *
+     * @param directoryPath String representation of full path to the directory
+     * @return int
+     */
+    public static int getDirectoryFolderCount(String directoryPath) {
+        int count = 0;
+        List<File> fileList = getDirectoryFiles(directoryPath);
+        for (File f : fileList) {
+            if (f.isDirectory()) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**

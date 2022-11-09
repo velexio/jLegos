@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,13 +27,24 @@ class FileUtilsTest {
     private final String EXIST_DIR_PATH = testStageDir.getAbsolutePath() + "/existing-dir";
     private final String COPY_SOURCE_FILE_1 = testStageDir.getAbsolutePath() + "/source.txt";
     private final String COPY_DEST_FILE_1 = testStageDir.getAbsolutePath() + "/dest.txt";
+    private final String COPY_SOURCE_DIR_1 = testStageDir.getAbsolutePath() + "/sourceDir1";
+    private final String COPY_TARGET_DIR_1 = testStageDir.getAbsolutePath() + "/targetDir1";
 
     @BeforeEach
     void setupEach() throws IOException {
         File existDir = new File(EXIST_DIR_PATH);
         if (testStageDir.mkdirs() && existDir.mkdir()) {
             FileUtils.touch(BLOCK_FILE_PATH);
-            FileUtils.append(COPY_SOURCE_FILE_1, "source", false);
+            FileUtils.write(COPY_SOURCE_FILE_1, "source", false);
+            Files.createDirectories(Path.of(COPY_SOURCE_DIR_1));
+            Files.createDirectories(Path.of(COPY_TARGET_DIR_1));
+            for (int subDirN : List.of(1, 2, 3)) {
+                Path subDirPath = Path.of(COPY_SOURCE_DIR_1 + "/subdir" + subDirN);
+                Files.createDirectories(subDirPath);
+                for (int fileN : List.of(1, 2, 3, 4, 5)) {
+                    FileUtils.write(subDirPath.toString() + "/file" + fileN + ".txt", "file#" + fileN, false);
+                }
+            }
         } else {
             fail("Unable to create test dir -> " + testStageDir.getAbsolutePath());
         }
@@ -145,6 +157,17 @@ class FileUtilsTest {
     @Test
     void ensureDirectoryThrowsException() {
         assertThrows(EnsureDirectoryException.class, () -> FileUtils.ensureDirectory(BLOCK_FILE_PATH));
+    }
+
+    @Test
+    void ensureDirCopyWorks() throws IOException {
+        FileUtils.copyDirectory(COPY_SOURCE_DIR_1, COPY_TARGET_DIR_1);
+        assertTrue(FileUtils.isDir(COPY_TARGET_DIR_1 + "/subdir1"));
+        assertEquals(5,
+                FileUtils.getDirectoryFileCount(COPY_TARGET_DIR_1 + "/subdir1"),
+                "Expected number of files in directory after copy is not correct");
+        assertEquals(3, FileUtils.getDirectoryFolderCount(COPY_TARGET_DIR_1),
+                "Expected number of directories after copy directory test is not correct");
     }
 
     @Test
@@ -310,6 +333,15 @@ class FileUtilsTest {
         assertEquals(3, FileUtils.getDirectoryFiles(zipDirPath).size());
         assertEquals(12, FileUtils.getDirectoryFiles(zipDirPath + "subdir1").size());
         assertEquals(0, FileUtils.getDirectoryFiles(zipDirPath + "nestedDir0").size());
+    }
+
+
+    @Test
+    void uncompressTarBallWorks() throws IOException {
+        String filePath = "src/test/resources/FileUtils/zipFiles/svelte-ionic.tar.gz";
+        File file = new File(filePath);
+        FileUtils.unzip(file.getAbsolutePath());
+        System.out.println("here");
     }
 
     @Test
