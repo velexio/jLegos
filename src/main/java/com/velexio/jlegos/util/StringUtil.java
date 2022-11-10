@@ -1,7 +1,9 @@
 package com.velexio.jlegos.util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,6 +32,40 @@ public class StringUtil {
         return found;
     }
 
+    /**
+     * Determines if a String value has a specified character in it
+     *
+     * @param stringToCheck
+     * @param compareChar
+     * @return
+     */
+    public static boolean hasChar(String stringToCheck, char compareChar) {
+        char[] stringCharArray = stringToCheck.toCharArray();
+        for (char c : stringCharArray) {
+            if (c == compareChar) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasChars(String stringToCheck, char[] compareArray) {
+        Set<String> stringSet = new HashSet<>();
+        Set<String> compareSet = new HashSet<>();
+
+        for (char c : stringToCheck.toCharArray()) {
+            stringSet.add(String.valueOf(c));
+        }
+
+        for (char c : compareArray) {
+            compareSet.add(String.valueOf(c));
+        }
+
+        stringSet.retainAll(compareSet);
+        return stringSet.size() > 0;
+
+    }
+
     public static List<String> asList(String stringObject) {
         List<String> stringList = new ArrayList<>(stringObject.length());
         char[] stringChars = stringObject.toCharArray();
@@ -38,4 +74,5 @@ public class StringUtil {
         }
         return stringList;
     }
+
 }

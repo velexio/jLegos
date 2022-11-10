@@ -9,6 +9,10 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * Used To Annotate the fields in a POJO class to indicate to code generation tool
+ * to include in creation of DTO class
+ */
 @Target({FIELD})
 @Retention(RUNTIME)
 @Documented
