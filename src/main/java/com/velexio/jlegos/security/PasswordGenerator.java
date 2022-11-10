@@ -40,7 +40,11 @@ import java.util.Random;
  *
  *     Example 2 - With exclusions <br><br>
  *
+ * </pre>
+ * <pre>
  *      List<String> excludedChars = new ArrayList<>(List.of("@", "[", "]"));
+ * </pre>
+ * <pre>
  *       PasswordGenerator generator = new PasswordGenerator.Builder()
  *               .useSpecial(true)
  *               .useDigits(false)
