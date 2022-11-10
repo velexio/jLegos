@@ -98,6 +98,14 @@ public class Cryptor {
         }
     }
 
+    /**
+     * Will decrypt the previously encrypted value, given the same encryption key/password
+     *
+     * @param encryptedValue
+     * @param encryptionPassword
+     * @return
+     * @throws InvalidKeyException
+     */
     @SneakyThrows
     public String decrypt(String encryptedValue, String encryptionPassword) throws InvalidKeyException {
         byte[] decodedBytes = Base64.getDecoder().decode(encryptedValue.getBytes(UTF_8));
@@ -115,6 +123,14 @@ public class Cryptor {
         return new String(cipher.doFinal(encryptedBytes), UTF_8);
     }
 
+    /**
+     * Will decrypt a previously encrypted file.
+     *
+     * @param filePath
+     * @param encryptionPassword
+     * @throws IOException
+     * @throws InvalidKeyException
+     */
     public void decryptFile(String filePath, String encryptionPassword) throws IOException, InvalidKeyException {
         String fileContent = Files.readString(Paths.get(filePath), UTF_8);
         String decryptedContent = decrypt(fileContent, encryptionPassword);

@@ -1,5 +1,9 @@
 package com.velexio.jlegos.data.enums;
 
+/**
+ * Used to annotate a POJO data class object to be used by auto code generator
+ * to create a compatible DTO class
+ */
 public enum DTOClassType {
 
     CREATE_DTO(Names.CREATE_NAME),
