@@ -5,7 +5,7 @@
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
 
-    <version>0.15.0</version>
+    <version>0.15.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
 
@@ -36,7 +36,6 @@
         <connection>scm:git:git://github.com/velexio/jLegos.git</connection>
         <developerConnection>scm:git:ssh@github.com:velexio/jLegos.git</developerConnection>
         <url>https://github.com/velexio/jLegos/tree/master</url>
-        <tag>jLegos-0.14.2</tag>
   </scm>
 
     <issueManagement>
@@ -83,7 +82,7 @@
 
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
+            <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
 
