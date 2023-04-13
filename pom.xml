@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
 
-    <version>0.15.2-SNAPSHOT</version>
+    <version>0.16.0</version>
     <packaging>jar</packaging>
 
 
@@ -56,8 +58,9 @@
 
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
-        <lombok.version>1.18.24</lombok.version>
-        <slf4j.version>2.0.3</slf4j.version>
+        <lombok.version>1.18.26</lombok.version>
+        <commons-logging.version>1.2</commons-logging.version>
+        <jsch.version>0.1.55</jsch.version>
         <maven.deploy.plugin.version>3.0.0</maven.deploy.plugin.version>
         <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
         <maven-release-plugin.version>3.0.0-M7</maven-release-plugin.version>
@@ -81,9 +84,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons-logging.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>${jsch.version}</version>
         </dependency>
 
         <dependency>

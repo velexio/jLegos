@@ -286,7 +286,10 @@ public class FileUtils {
     }
 
     /**
-     * Simple utility to make easier for simple append to file operations.  Less boilerplate than creating FileWriter, remembering to close, etc.
+     * Simple utility to make easier for simple append to file operations.  Less boilerplate than creating FileWriter,
+     * remembering to close, etc.
+     * <p>
+     * Marked for removal in version 0.15.2
      *
      * @param filePath    String representation of the path to the file you want to append to
      * @param appendValue String value that you want appended to the file
@@ -294,7 +297,7 @@ public class FileUtils {
      * @throws IOException Will be raised if there is an issue writing to the file
      * @deprecated Please use write or writeLines methods
      */
-    @Deprecated
+    @Deprecated(forRemoval = true)
     public static void append(String filePath, String appendValue, boolean asNewLine) throws IOException {
         File appendFile = new File(filePath);
         FileWriter fw = new FileWriter(appendFile, true);
