@@ -1,14 +1,15 @@
 #!/bin/bash
 
-mvn clean
-mvn release:prepare
-mvn release:perform
+mvn clean deploy -P release
+mvn scm:tag
 
-git push --tags
-git push origin develop
+#git push --tags
+#git push origin develop
 
 echo ""
 echo "**** NOTE *****"
 echo ""
-echo "Remember to create PR to merge develop to master"
+echo "Remember to: "
+echo "  - push w/ tags"
+echo "  - create PR to merge develop to master"
 echo ""
