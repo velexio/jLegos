@@ -44,7 +44,7 @@ public class RemoteHost {
 
         try {
 
-            session = sshClient.getSession(hostname, username, port);
+            session = sshClient.getSession(username, hostname, port);
 
             if (StringUtil.hasValue(password)) {
                 session.setPassword(password);
