@@ -7,7 +7,9 @@
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
 
+
     <version>0.17.0</version>
+
     <packaging>jar</packaging>
 
 
