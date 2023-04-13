@@ -1,10 +1,9 @@
 #!/bin/bash
 
-mvn clean deploy -P release
-mvn scm:tag
+mvn clean deploy -P release scm:tag
 
 #git push --tags
-#git push origin develop
+git push
 
 echo ""
 echo "**** NOTE *****"
