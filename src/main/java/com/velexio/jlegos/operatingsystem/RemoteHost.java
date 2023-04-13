@@ -6,7 +6,6 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.velexio.jlegos.exceptions.RemoteHostExecutionException;
 import com.velexio.jlegos.exceptions.RemoteHostInitializationException;
-import com.velexio.jlegos.exceptions.RemoteHostMissingAuthenticationException;
 import com.velexio.jlegos.util.StringUtil;
 
 import java.io.ByteArrayOutputStream;
@@ -21,24 +20,24 @@ import java.util.Hashtable;
 public class RemoteHost {
 
     private final JSch sshClient;
-    private String hostname;
-    private String username;
-    private String password;
-    private int port;
-    private Hashtable<String, String> sshConfig;
-    private int connectionTimeout;
+    private final String hostname;
+    private final String username;
+    private final String password;
+    private final int port;
+    private final Hashtable<String, String> sshConfig;
+    private final int connectionTimeout;
 
     private RemoteHost(Builder builder) {
         sshClient = builder.sshClient;
         this.hostname = builder.hostname;
         this.username = builder.username;
+        this.password = builder.password;
         this.port = builder.port;
         this.sshConfig = builder.sshConfig;
         this.connectionTimeout = builder.connectionTimeout;
     }
 
-    public CommandResponse execute(String command)
-            throws RemoteHostMissingAuthenticationException, RemoteHostExecutionException {
+    public CommandResponse execute(String command) throws RemoteHostExecutionException {
 
         Session session = null;
         ChannelExec channelExec = null;
@@ -74,17 +73,24 @@ public class RemoteHost {
 
         } catch (JSchException | InterruptedException e) {
             throw new RemoteHostExecutionException(e.getLocalizedMessage());
+        } finally {
+            if (session != null) {
+                session.disconnect();
+            }
+            if (channelExec != null) {
+                channelExec.disconnect();
+            }
         }
 
     }
 
     public static class Builder {
-        private String hostname;
+        private final String hostname;
         private String username;
         private String password;
         private int port;
-        private JSch sshClient;
-        private Hashtable<String, String> sshConfig;
+        private final JSch sshClient;
+        private final Hashtable<String, String> sshConfig;
         private int connectionTimeout;
 
         public Builder(String hostname) {
@@ -93,6 +99,7 @@ public class RemoteHost {
             this.port = 22;
             this.connectionTimeout = 10;
             this.sshClient = new JSch();
+            this.sshConfig = new Hashtable<>();
             this.sshConfig.put("StrictHostKeyChecking", "no");
         }
 
