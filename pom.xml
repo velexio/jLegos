@@ -7,7 +7,7 @@
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
 
-    <version>0.16.6</version>
+    <version>0.16.7</version>
     <packaging>jar</packaging>
 
 
@@ -190,6 +190,7 @@
                 <version>${maven-scm-provider-gitexe.version}</version>
                 <configuration>
                     <tag>release-${project.version}</tag>
+                    <password>${github.accessToken}</password>
                 </configuration>
             </plugin>
 
@@ -218,6 +219,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -234,6 +236,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -254,6 +257,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 
