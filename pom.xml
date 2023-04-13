@@ -7,7 +7,7 @@
     <groupId>com.velexio</groupId>
     <artifactId>jLegos</artifactId>
 
-    <version>0.16.7</version>
+    <version>0.16.8</version>
     <packaging>jar</packaging>
 
 
@@ -190,7 +190,9 @@
                 <version>${maven-scm-provider-gitexe.version}</version>
                 <configuration>
                     <tag>release-${project.version}</tag>
+                    <!--                    <pushChanges>false</pushChanges>-->
                     <password>${github.accessToken}</password>
+                    <username>${github.username}</username>
                 </configuration>
             </plugin>
 
