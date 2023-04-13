@@ -3,7 +3,8 @@ package com.velexio.jlegos.crypto;
 import com.velexio.jlegos.util.FileUtils;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.crypto.*;
 import javax.crypto.spec.GCMParameterSpec;
@@ -25,8 +26,8 @@ import java.util.Base64;
 
 
 @Getter
-@Slf4j
 public class Cryptor {
+    private static final Log log = LogFactory.getLog(Cryptor.class);
 
     private static final Charset UTF_8 = StandardCharsets.UTF_8;
     private static final String ENCRYPTION_ALGO = "AES/GCM/NoPadding";
@@ -89,7 +90,7 @@ public class Cryptor {
         FileUtils.rename(filePath, filePath + ".raw");
         try {
             FileUtils.touch(filePath);
-            FileUtils.append(filePath, fileContentEncrypted, false);
+            FileUtils.write(filePath, fileContentEncrypted, false);
             FileUtils.delete(filePath + ".raw");
         } catch (IOException ioe) {
             FileUtils.rename(filePath + ".raw", filePath);
@@ -137,7 +138,7 @@ public class Cryptor {
         FileUtils.rename(filePath, filePath + ".enc");
         try {
             FileUtils.touch(filePath);
-            FileUtils.append(filePath, decryptedContent, false);
+            FileUtils.write(filePath, decryptedContent, false);
             FileUtils.delete(filePath + ".enc");
         } catch (IOException ioe) {
             FileUtils.rename(filePath + ".enc", filePath);
