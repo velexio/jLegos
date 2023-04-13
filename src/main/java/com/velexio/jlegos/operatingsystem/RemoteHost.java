@@ -187,6 +187,10 @@ public class RemoteHost {
             return this;
         }
 
+        public RemoteHost build() {
+            return new RemoteHost(this);
+        }
+
     }
 
 }
