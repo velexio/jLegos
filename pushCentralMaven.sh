@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mvn clean deploy
-#mvn clean deploy -P release
+mvn clean deploy -P release
+mvn scm:tag
 
 #git push --tags
 #git push origin develop
