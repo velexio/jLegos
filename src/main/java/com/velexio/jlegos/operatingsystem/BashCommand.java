@@ -1,5 +1,6 @@
 package com.velexio.jlegos.operatingsystem;
 
+import com.velexio.jlegos.exceptions.CommandExecutionException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -11,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Class that allows for executing Unix commands within a bash shell
+ */
 public class BashCommand {
 
     private final Log log = LogFactory.getLog(BashCommand.class);
@@ -23,7 +27,7 @@ public class BashCommand {
     /**
      * Constructor for running a command without environment variables set
      *
-     * @param command
+     * @param command The command to run
      */
     public BashCommand(String command) {
         this.command = command;
@@ -53,23 +57,34 @@ public class BashCommand {
      * This will execute the currently set command and return a BashCommandResponse object
      *
      * @return A BashCommandResponse object, which holds all output from the command
-     * @throws IOException when the process is unable to execute
+     * @throws CommandExecutionException when the process is unable to execute
      */
-    public CommandResponse execute() throws IOException {
-        Process process = processBuilder.start();
-        BufferedReader outStream = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        BufferedReader errorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-        List<String> outLines = outStream.lines().collect(Collectors.toList());
-        List<String> errLines = errorStream.lines().collect(Collectors.toList());
-        if (errLines.size() > 0) log.debug(String.format("Error output detected in run of command [%s]", command));
-        return CommandResponse.builder()
-                .stdOutLines(outLines)
-                .stdErrLines(errLines)
-                .success(errLines.size() == 0)
-                .build();
+    public CommandResponse execute() throws CommandExecutionException {
+        try {
+            Process process = processBuilder.start();
+            BufferedReader outStream = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader errorStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            List<String> outLines = outStream.lines().collect(Collectors.toList());
+            List<String> errLines = errorStream.lines().collect(Collectors.toList());
+            if (errLines.size() > 0) log.debug(String.format("Error output detected in run of command [%s]", command));
+            return CommandResponse.builder()
+                    .stdOutLines(outLines)
+                    .stdErrLines(errLines)
+                    .success(errLines.size() == 0)
+                    .build();
+        } catch (IOException ioe) {
+            throw new CommandExecutionException(ioe.getLocalizedMessage());
+        }
     }
 
-    public CommandResponse execute(String command) throws IOException {
+    /**
+     * Executes the specified command and returns {@code CommandResponse} object
+     *
+     * @param command The command that is desired to be executed
+     * @return CommandResponse object that holds stdout stderr lines
+     * @throws CommandExecutionException when execution is unable to start a process
+     */
+    public CommandResponse execute(String command) throws CommandExecutionException {
         this.command = command;
         processBuilder = constructProcess();
         return execute();

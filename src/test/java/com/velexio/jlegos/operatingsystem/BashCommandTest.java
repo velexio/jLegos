@@ -1,8 +1,8 @@
 package com.velexio.jlegos.operatingsystem;
 
+import com.velexio.jlegos.exceptions.CommandExecutionException;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class BashCommandTest {
 
     @Test
-    void execute() throws IOException {
+    void execute() throws CommandExecutionException {
         String testCommand = "date";
         BashCommand bashCommand = new BashCommand(testCommand);
         CommandResponse response = bashCommand.execute();
@@ -20,7 +20,7 @@ class BashCommandTest {
     }
 
     @Test
-    void execute_withEnvVarsWorks() throws IOException {
+    void execute_withEnvVarsWorks() throws CommandExecutionException {
         Map<String, String> envVars = new HashMap<>(Map.of("TEST_RUN", "YES"));
         String command = "echo $TEST_RUN";
         BashCommand bashCommand = new BashCommand(command, envVars);
@@ -30,7 +30,7 @@ class BashCommandTest {
     }
 
     @Test
-    void execute_SecondCommandWorks() throws IOException {
+    void execute_SecondCommandWorks() throws CommandExecutionException {
         Map<String, String> envVars = new HashMap<>(Map.of("TEST_RUN", "YES", "TEST_VAR_2", "testing123"));
         String command1 = "echo $TEST_RUN";
         String command2 = "echo $TEST_VAR_2";
@@ -42,7 +42,7 @@ class BashCommandTest {
     }
 
     @Test
-    void execute_MergeEnvVarsWorks() throws IOException {
+    void execute_MergeEnvVarsWorks() throws CommandExecutionException {
         Map<String, String> envVars = new HashMap<>(Map.of("TEST_RUN", "YES", "TEST_VAR_2", "testing123"));
         String command1 = "echo $TEST_RUN";
         String command2 = "echo $TEST_VAR_2";
@@ -56,7 +56,7 @@ class BashCommandTest {
 
 
     @Test
-    void execute_AddEnvVarWorks() throws IOException {
+    void execute_AddEnvVarWorks() throws CommandExecutionException {
         Map<String, String> envVars = new HashMap<>(Map.of("TEST_RUN", "YES"));
         String command = "echo $TEST_RUN";
         String command2 = "echo $ADD_VAR";

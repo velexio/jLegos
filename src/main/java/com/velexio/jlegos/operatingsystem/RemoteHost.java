@@ -4,7 +4,7 @@ import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import com.velexio.jlegos.exceptions.RemoteHostExecutionException;
+import com.velexio.jlegos.exceptions.CommandExecutionException;
 import com.velexio.jlegos.exceptions.RemoteHostInitializationException;
 import com.velexio.jlegos.util.StringUtil;
 
@@ -37,7 +37,7 @@ public class RemoteHost {
         this.connectionTimeout = builder.connectionTimeout;
     }
 
-    public CommandResponse execute(String command) throws RemoteHostExecutionException {
+    public CommandResponse execute(String command) throws CommandExecutionException {
 
         Session session = null;
         ChannelExec channelExec = null;
@@ -72,7 +72,7 @@ public class RemoteHost {
 
 
         } catch (JSchException | InterruptedException e) {
-            throw new RemoteHostExecutionException(e.getLocalizedMessage());
+            throw new CommandExecutionException(e.getLocalizedMessage());
         } finally {
             if (session != null) {
                 session.disconnect();
