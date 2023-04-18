@@ -52,6 +52,13 @@ public class Cryptor {
         return new SecretKeySpec(keyFactory.generateSecret(keySpec).getEncoded(), "AES");
     }
 
+    /**
+     * Will encrypt string
+     *
+     * @param message            String to encrypt
+     * @param encryptionPassword Password to use for encryption
+     * @return Encrypted string
+     */
     @SneakyThrows
     public String encrypt(String message, String encryptionPassword) {
 
@@ -75,8 +82,8 @@ public class Cryptor {
      *
      * @param filePath           The full path to the file
      * @param encryptionPassword The password to be used for encryption
-     * @throws URISyntaxException
-     * @throws IOException
+     * @throws URISyntaxException When file is not present
+     * @throws IOException Unable to read file
      */
     @SneakyThrows
     public void encryptFile(String filePath, String encryptionPassword) throws URISyntaxException, IOException {
@@ -102,10 +109,10 @@ public class Cryptor {
     /**
      * Will decrypt the previously encrypted value, given the same encryption key/password
      *
-     * @param encryptedValue
-     * @param encryptionPassword
-     * @return
-     * @throws InvalidKeyException
+     * @param encryptedValue The encrypted value that needs to be decrypted
+     * @param encryptionPassword The encryption password
+     * @return String representing the original/unencrypted value
+     * @throws InvalidKeyException Wrong password is passed
      */
     @SneakyThrows
     public String decrypt(String encryptedValue, String encryptionPassword) throws InvalidKeyException {
@@ -127,10 +134,10 @@ public class Cryptor {
     /**
      * Will decrypt a previously encrypted file.
      *
-     * @param filePath
-     * @param encryptionPassword
-     * @throws IOException
-     * @throws InvalidKeyException
+     * @param filePath Path to the file to decrypt
+     * @param encryptionPassword The password used to encrypt the file
+     * @throws IOException Issue with reading file
+     * @throws InvalidKeyException Password passed is incorrect
      */
     public void decryptFile(String filePath, String encryptionPassword) throws IOException, InvalidKeyException {
         String fileContent = Files.readString(Paths.get(filePath), UTF_8);
@@ -151,12 +158,6 @@ public class Cryptor {
         return Cipher.getInstance(ENCRYPTION_ALGO);
     }
 
-    /**
-     * Will generate a random byte[] that can be used as a initialization vector for encrypt/decrypt functions
-     *
-     * @param size The size of IV to generate.  Default is
-     * @return
-     */
     private byte[] getRandomBytes(int size) {
         byte[] iv = new byte[size];
         new SecureRandom().nextBytes(iv);

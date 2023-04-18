@@ -4,12 +4,12 @@ import lombok.Builder;
 
 import java.util.List;
 
-@Builder
 /**
  * Data object that holds the response information from the execution of Command execution results.
  * The getStandardOutput method will return the full lines returned via stdOut
  * The getErrorOutput will return whatever was written to stdErr
  */
+@Builder
 public class CommandResponse {
     private boolean success;
     private List<String> stdOutLines;
