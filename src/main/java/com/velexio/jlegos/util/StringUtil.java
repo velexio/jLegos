@@ -11,9 +11,21 @@ import java.util.regex.Pattern;
  * Handy functions to use with Strings
  */
 public class StringUtil {
+    /**
+     * All valid English lowercase alphabet characters
+     */
     public static final String LOWER_ENGLISH_ALPHA = "abcdefghijklmnopqrstuvwxyz";
+    /**
+     * All valid English uppercase alphabet characters
+     */
     public static final String UPPER_ENGLISH_ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    /**
+     * The list of valid numbers
+     */
     public static final String NUMBERS = "0123456789";
+    /**
+     * Default special characters
+     */
     public static final String SPECIAL_CHARS = "!@#$%&*()_+-=[]|,./?><";
 
     public static boolean hasDigits(String str) {
@@ -25,6 +37,12 @@ public class StringUtil {
         return false;
     }
 
+    /**
+     * Boolean check to see if string has any special characters
+     *
+     * @param str String value to check
+     * @return true if special characters are in the string
+     */
     public static boolean hasSpecial(String str) {
         if (StringUtil.hasValue(str)) {
             boolean found = false;
