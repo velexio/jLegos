@@ -1,12 +1,14 @@
 package com.velexio.jlegos.operatingsystem;
 
 import com.velexio.jlegos.exceptions.CommandExecutionException;
+import com.velexio.jlegos.util.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,24 @@ public class BashCommand {
     }
 
     /**
+     * Constructor for when command is not known at construction. Use the overloaded execute(String c) method
+     * when constructing command without command
+     */
+    public BashCommand() {
+        this.environmentVariables = new HashMap<>();
+    }
+
+    /**
+     * Constructor for when environment variables are set at creation. Use this when anticipated to run
+     * several commands with same instance.
+     *
+     * @param environmentVariables Map containing all environment variables to be set inside shell
+     */
+    public BashCommand(Map<String, String> environmentVariables) {
+        this.environmentVariables = environmentVariables;
+    }
+
+    /**
      * Constructor that sets both command and environment variables required for execution
      *
      * @param command              Is the command to run
@@ -59,7 +79,7 @@ public class BashCommand {
      * @return A BashCommandResponse object, which holds all output from the command
      * @throws CommandExecutionException when the process is unable to execute
      */
-    public CommandResponse execute() throws CommandExecutionException {
+    public CommandResponse execute() {
         try {
             Process process = processBuilder.start();
             BufferedReader outStream = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -73,7 +93,10 @@ public class BashCommand {
                     .success(errLines.size() == 0)
                     .build();
         } catch (IOException ioe) {
-            throw new CommandExecutionException(ioe.getLocalizedMessage());
+            return CommandResponse.builder()
+                    .success(false)
+                    .stdErrLines(new ArrayList<>(List.of(ExceptionUtils.getStackTrace(ioe))))
+                    .build();
         }
     }
 
