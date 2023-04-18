@@ -7,6 +7,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Handy functions to use with Strings
+ */
 public class StringUtil {
     public static final String LOWER_ENGLISH_ALPHA = "abcdefghijklmnopqrstuvwxyz";
     public static final String UPPER_ENGLISH_ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
