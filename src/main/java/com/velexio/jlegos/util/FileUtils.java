@@ -315,7 +315,7 @@ public class FileUtils {
      *
      * @param filePath A string representing the path to the file
      * @param lines    A list of strings to be written to the file
-     * @throws IOException
+     * @throws IOException When unable to perform operation
      */
     public static void writeLines(String filePath, List<String> lines) throws IOException {
         File appendFile = new File(filePath);
@@ -333,7 +333,7 @@ public class FileUtils {
      * @param filePath A string representing the path to the file
      * @param content  The content that is to be written
      * @param append   boolean to indicate if content should be appended or not
-     * @throws IOException
+     * @throws IOException When unable to perform operation
      */
     public static void write(String filePath, String content, boolean append) throws IOException {
         File file = new File(filePath);
@@ -404,7 +404,7 @@ public class FileUtils {
      *
      * @param sourceDir Directory path to copy
      * @param targetDir Target parent directory will source directory will be written
-     * @throws IOException
+     * @throws IOException When unable to perform operation
      */
     public static void copyDirectory(String sourceDir, String targetDir, FileCopyOption... options) throws IOException {
         Path sourcePath = Paths.get(sourceDir);
@@ -419,7 +419,7 @@ public class FileUtils {
         }
 
         final CopyOption[] finalCopyOptions = copyOptions.toArray(new CopyOption[0]);
-        Files.walkFileTree(sourcePath, new SimpleFileVisitor<Path>() {
+        Files.walkFileTree(sourcePath, new SimpleFileVisitor<>() {
 
             @Override
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
@@ -510,8 +510,8 @@ public class FileUtils {
      * the directory (This does not search subfolders)
      * </p>
      *
-     * @param directoryPath
-     * @return
+     * @param directoryPath Path to directory
+     * @return The number of directories in the path
      */
     public static int getDirectoryFileCount(String directoryPath) {
         int count = 0;
@@ -554,7 +554,7 @@ public class FileUtils {
         List<File> fileList = new ArrayList<>();
         File d = new File(directoryPath);
         if (d.isDirectory()) {
-            fileList = Arrays.asList(d.listFiles());
+            fileList = d.listFiles() != null ? Arrays.asList(d.listFiles()) : new ArrayList<>();
         }
         return fileList;
     }

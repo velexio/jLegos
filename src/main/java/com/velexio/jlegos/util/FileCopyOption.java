@@ -4,6 +4,9 @@ package com.velexio.jlegos.util;
 import java.nio.file.CopyOption;
 import java.nio.file.StandardCopyOption;
 
+/**
+ * Enum to emulate options for performing file copy
+ */
 public enum FileCopyOption {
     ATOMIC_MOVE,
     INCLUDE_ATTRIBUTES,
