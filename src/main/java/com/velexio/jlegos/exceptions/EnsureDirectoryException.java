@@ -18,7 +18,7 @@ public class EnsureDirectoryException extends IOException {
     /**
      * Thrown when regular file exists with same name as passed directory
      *
-     * @param directoryFile
+     * @param directoryFile The file object representing the directory
      */
     public EnsureDirectoryException(File directoryFile) {
         super("A regular file already exists where directory [" + directoryFile.getAbsolutePath() + "] is desired. Use force method to overwrite");
@@ -27,7 +27,7 @@ public class EnsureDirectoryException extends IOException {
     /**
      * Provides override of default message
      *
-     * @param message
+     * @param message Error message
      */
     public EnsureDirectoryException(String message) {
         super(message);

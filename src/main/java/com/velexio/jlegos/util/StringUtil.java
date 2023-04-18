@@ -62,8 +62,8 @@ public class StringUtil {
     /**
      * Determines if a String value has a specified character in it
      *
-     * @param str
-     * @param compareChar
+     * @param str         The string to check for character
+     * @param compareChar the character to search for
      * @return {@code true} if the passed in string contains the has specified char
      */
     public static boolean hasChar(String str, char compareChar) {
@@ -81,9 +81,9 @@ public class StringUtil {
     /**
      * Checks the string for an characters found in passed in array
      *
-     * @param str
-     * @param compareArray
-     * @return
+     * @param str the string to check
+     * @param compareArray The array of characters to search
+     * @return true if any of the charcters are found
      */
     public static boolean hasChars(String str, char[] compareArray) {
         if (StringUtil.hasValue(str)) {
@@ -107,8 +107,8 @@ public class StringUtil {
     /**
      * Will return the string as a list of all the individual characters that compose the string
      *
-     * @param str
-     * @return
+     * @param str the string to convert
+     * @return List of all characters in the string
      */
     public static List<String> asList(String str) {
         if (StringUtil.hasValue(str)) {

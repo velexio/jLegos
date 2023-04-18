@@ -77,7 +77,6 @@ public class BashCommand {
      * This will execute the currently set command and return a BashCommandResponse object
      *
      * @return A BashCommandResponse object, which holds all output from the command
-     * @throws CommandExecutionException when the process is unable to execute
      */
     public CommandResponse execute() {
         try {

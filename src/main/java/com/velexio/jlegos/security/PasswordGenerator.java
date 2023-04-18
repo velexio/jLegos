@@ -81,7 +81,7 @@ public class PasswordGenerator {
      * Generates password with options provided to PasswordGenerator.Builder
      *
      * @param passwordLength Length of characters the password should have
-     * @return
+     * @return A password meeting policy/criteria
      */
     public String generate(int passwordLength) {
         if (passwordLength <= 0) {
@@ -138,8 +138,8 @@ public class PasswordGenerator {
          * Controls whether lowercase letters are to be used in password
          * Default: true
          *
-         * @param useLower
-         * @return
+         * @param useLower boolean to indicate that password should have lowercase
+         * @return Builder
          */
         public Builder useLower(boolean useLower) {
             this.useLower = useLower;
@@ -150,8 +150,8 @@ public class PasswordGenerator {
          * Controls whether uppercase letters are to be used in password
          * Default: true
          *
-         * @param useUpper
-         * @return
+         * @param useUpper boolean to change uppercase setting
+         * @return Builder
          */
         public Builder useUpper(boolean useUpper) {
             this.useUpper = useUpper;
@@ -162,8 +162,8 @@ public class PasswordGenerator {
          * Controls whether numbers are to be used in password
          * Default: true
          *
-         * @param useDigits
-         * @return
+         * @param useDigits Set explicit user of digits in password
+         * @return Builder
          */
         public Builder useDigits(boolean useDigits) {
             this.useDigits = useDigits;
@@ -174,8 +174,8 @@ public class PasswordGenerator {
          * Controls whether special characters are to be used in password
          * Default: false
          *
-         * @param useSpecial
-         * @return
+         * @param useSpecial explicit setting of useage of special characters
+         * @return Builder
          */
         public Builder useSpecial(boolean useSpecial) {
             this.useSpecial = useSpecial;
@@ -185,8 +185,8 @@ public class PasswordGenerator {
         /**
          * Use this builder option to add an list of excluded characters
          *
-         * @param excludedList
-         * @return
+         * @param excludedList List of excluded characters
+         * @return Builder
          */
         public Builder addExcludeList(List<String> excludedList) {
             this.excludedList = excludedList;

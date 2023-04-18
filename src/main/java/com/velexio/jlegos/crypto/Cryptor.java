@@ -25,6 +25,9 @@ import java.security.spec.KeySpec;
 import java.util.Base64;
 
 
+/**
+ * Class that handles various encryption/decryption tasks
+ */
 @Getter
 public class Cryptor {
     private static final Log log = LogFactory.getLog(Cryptor.class);

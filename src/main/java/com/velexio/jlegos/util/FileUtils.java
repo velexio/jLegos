@@ -64,12 +64,19 @@ public class FileUtils {
 
     /**
      * Will retrieve the current value of the copyBufferSize value begin used for copy/move operations
+     *
      * @return int value that indicates the size of the buffer (in bytes)
      */
     public static int getCopyBufferSize() {
         return copyBufferSize;
     }
 
+    /**
+     * Simple check to see if file exists
+     *
+     * @param filePath The full path to the file
+     * @return true if file is present, otherwise false
+     */
     public static boolean exists(String filePath) {
         File file = new File(filePath);
         return file.exists();
@@ -404,6 +411,7 @@ public class FileUtils {
      *
      * @param sourceDir Directory path to copy
      * @param targetDir Target parent directory will source directory will be written
+     * @param options The {@code FileCopyOption} to use when performing copy
      * @throws IOException When unable to perform operation
      */
     public static void copyDirectory(String sourceDir, String targetDir, FileCopyOption... options) throws IOException {

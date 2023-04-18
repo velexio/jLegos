@@ -43,7 +43,7 @@ public class RemoteHost {
      * Allows for executing a command against the remote host
      *
      * @param command The command to execute
-     * @return @code CommandResponse object that holds the results of the command
+     * @return {@code CommandResponse} object that holds the results of the command
      */
     public CommandResponse execute(String command) {
 
@@ -213,8 +213,8 @@ public class RemoteHost {
          * @param keySetName The name of the key pair
          * @param privateKey String value of the private key
          * @param publicKey  String value of the public key
-         * @return
-         * @throws RemoteHostInitializationException
+         * @return Builder
+         * @throws RemoteHostInitializationException when key is invalid
          */
         public Builder withKeysFromStrings(String keySetName, String privateKey, String publicKey)
                 throws RemoteHostInitializationException {

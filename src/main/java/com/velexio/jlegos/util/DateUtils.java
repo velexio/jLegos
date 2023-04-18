@@ -77,6 +77,12 @@ public class DateUtils {
         return DateUtils.formatMillis(new Date().getTime());
     }
 
+    /**
+     * Handy method to get current date as a formatted string
+     *
+     * @param pattern The pattern to format the date
+     * @return The date as a string formatted with provided pattern;
+     */
     public static String getNowAsString(String pattern) {
         return DateUtils.formatMillis(new Date().getTime(), pattern);
     }
