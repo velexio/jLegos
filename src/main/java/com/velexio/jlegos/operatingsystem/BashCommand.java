@@ -1,6 +1,5 @@
 package com.velexio.jlegos.operatingsystem;
 
-import com.velexio.jlegos.exceptions.CommandExecutionException;
 import com.velexio.jlegos.util.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,7 +20,7 @@ public class BashCommand {
 
     private final Log log = LogFactory.getLog(BashCommand.class);
     private String command;
-    private Map<String, String> environmentVariables;
+    private final Map<String, String> environmentVariables;
 
     private ProcessBuilder processBuilder;
 
@@ -104,9 +103,8 @@ public class BashCommand {
      *
      * @param command The command that is desired to be executed
      * @return CommandResponse object that holds stdout stderr lines
-     * @throws CommandExecutionException when execution is unable to start a process
      */
-    public CommandResponse execute(String command) throws CommandExecutionException {
+    public CommandResponse execute(String command) {
         this.command = command;
         processBuilder = constructProcess();
         return execute();
